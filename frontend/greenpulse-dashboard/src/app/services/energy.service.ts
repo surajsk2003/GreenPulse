@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, timer, Subject } from 'rxjs';
 import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Building {
   id: number;
@@ -60,8 +61,8 @@ export interface Insight {
   providedIn: 'root'
 })
 export class EnergyService {
-  private readonly apiUrl = 'http://localhost:8000/api';
-  private readonly wsUrl = 'ws://localhost:8000/api/ws';
+  private readonly apiUrl = environment.apiUrl;
+  private readonly wsUrl = environment.apiUrl.replace('http', 'ws') + '/ws';
   private selectedBuildingSubject = new BehaviorSubject<number>(0);
   private realTimeDataSubject = new BehaviorSubject<EnergyReading[]>([]);
   private websocket?: WebSocket;
