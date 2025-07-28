@@ -27,7 +27,7 @@ COPY ashrae-energy-data/ ./ashrae-energy-data/
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
-EXPOSE 8000
+EXPOSE $PORT
 
-# Command to run the application
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Command to run the application with startup script
+CMD ["python", "start.py"]
