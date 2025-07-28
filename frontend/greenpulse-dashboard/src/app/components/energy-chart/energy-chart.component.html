@@ -1,0 +1,46 @@
+<div class="chart-container">
+  <div class="chart-header">
+    <h3>⚡ Energy Consumption</h3>
+    <div class="chart-controls">
+      <button 
+        *ngFor="let type of chartTypes" 
+        [class.active]="type.value === selectedChartType"
+        (click)="changeChartType(type.value)"
+        class="chart-type-btn">
+        {{type.label}}
+      </button>
+    </div>
+  </div>
+  
+  <div class="chart-content" [class.loading]="loading">
+    <canvas #chartCanvas></canvas>
+    
+    <!-- Loading overlay -->
+    <div class="loading-overlay" *ngIf="loading">
+      <div class="spinner"></div>
+      <span>Loading energy data...</span>
+    </div>
+    
+    <!-- No data message -->
+    <div class="no-data-message" *ngIf="!loading && (!energyData || energyData.length === 0)">
+      <span>📊 No energy data available</span>
+      <p>Select a building to view energy consumption patterns</p>
+    </div>
+  </div>
+  
+  <!-- Chart Legend -->
+  <div class="chart-legend" *ngIf="!loading && energyData && energyData.length > 0">
+    <div class="legend-item">
+      <div class="legend-color" style="background: #4facfe;"></div>
+      <span>Current Usage</span>
+    </div>
+    <div class="legend-item" *ngIf="forecast && forecast.length > 0">
+      <div class="legend-color" style="background: #ff9500;"></div>
+      <span>Forecast</span>
+    </div>
+    <div class="legend-item" *ngIf="anomalies && anomalies.length > 0">
+      <div class="legend-color" style="background: #ff6b6b;"></div>
+      <span>Anomalies ({{anomalies.length}})</span>
+    </div>
+  </div>
+</div>

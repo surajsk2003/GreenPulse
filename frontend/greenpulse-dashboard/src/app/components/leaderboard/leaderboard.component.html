@@ -1,0 +1,87 @@
+<div class="leaderboard-panel">
+  <div class="panel-header">
+    <h3>🏆 Efficiency Leaderboard</h3>
+    <div class="period-selector">
+      <select [(ngModel)]="selectedPeriod" (change)="onPeriodChange()">
+        <option value="day">Today</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="leaderboard-content" [class.loading]="loading">
+    <!-- Loading state -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="spinner"></div>
+      <span>Loading rankings...</span>
+    </div>
+    
+    <!-- No data -->
+    <div class="no-data" *ngIf="!loading && (!leaderboard || leaderboard.length === 0)">
+      <div class="no-data-icon">📊</div>
+      <h4>No ranking data</h4>
+      <p>Leaderboard will appear once buildings have energy data</p>
+    </div>
+    
+    <!-- Leaderboard list -->
+    <div class="leaderboard-list" *ngIf="!loading && leaderboard && leaderboard.length > 0">
+      <div 
+        *ngFor="let building of leaderboard; let i = index; trackBy: trackByBuildingId" 
+        class="leaderboard-item"
+        [class.top-performer]="i < 3">
+        
+        <div class="rank">
+          <span class="rank-number" [class]="getRankClass(i + 1)">
+            {{getRankDisplay(i + 1)}}
+          </span>
+        </div>
+        
+        <div class="building-info">
+          <div class="building-name">{{building.name}}</div>
+          <div class="building-type">{{building.building_type}}</div>
+        </div>
+        
+        <div class="efficiency-score">
+          <div class="score-circle" [class]="getScoreClass(building.efficiency_score)">
+            <span class="score-value">{{building.efficiency_score}}</span>
+          </div>
+          <div class="score-label">Efficiency</div>
+        </div>
+        
+        <div class="usage-metrics">
+          <div class="metric">
+            <span class="metric-value">{{building.current_usage | number:'1.1-1'}} kWh</span>
+            <span class="metric-label">Current</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">{{building.usage_per_sqft | number:'1.2-2'}}</span>
+            <span class="metric-label">kWh/sqft</span>
+          </div>
+        </div>
+        
+        <div class="trend-indicator">
+          <span class="trend-arrow" [class]="getTrendClass(building)">
+            {{getTrendArrow(building)}}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Summary stats -->
+    <div class="leaderboard-summary" *ngIf="!loading && leaderboard && leaderboard.length > 0">
+      <div class="summary-item">
+        <span class="summary-label">Average Efficiency:</span>
+        <span class="summary-value">{{getAverageEfficiency() | number:'1.0-0'}}%</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Top Performer:</span>
+        <span class="summary-value">{{leaderboard[0]?.name}}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Buildings Tracked:</span>
+        <span class="summary-value">{{leaderboard.length}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,267 @@
+.leaderboard-panel {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+  }
+}
+
+.period-selector {
+  select {
+    padding: 6px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    
+    &:focus {
+      outline: none;
+      border-color: #4facfe;
+    }
+  }
+}
+
+.leaderboard-content {
+  flex: 1;
+  overflow-y: auto;
+  
+  &.loading {
+    opacity: 0.6;
+  }
+}
+
+.loading-state, .no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #666;
+  
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4facfe;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+  }
+  
+  .no-data-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+  
+  h4 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.2s;
+  
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  &.top-performer {
+    background: linear-gradient(135deg, #fff9c4 0%, #fff3cd 100%);
+    border-color: #ffc107;
+  }
+}
+
+.rank {
+  width: 50px;
+  text-align: center;
+  
+  .rank-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    
+    &.gold {
+      color: #ffd700;
+    }
+    
+    &.silver {
+      color: #c0c0c0;
+    }
+    
+    &.bronze {
+      color: #cd7f32;
+    }
+    
+    &.regular {
+      color: #666;
+    }
+  }
+}
+
+.building-info {
+  flex: 1;
+  margin-left: 15px;
+  
+  .building-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+  }
+  
+  .building-type {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+}
+
+.efficiency-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+  
+  .score-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    
+    &.excellent {
+      background: linear-gradient(135deg, #4caf50, #66bb6a);
+    }
+    
+    &.good {
+      background: linear-gradient(135deg, #2196f3, #42a5f5);
+    }
+    
+    &.average {
+      background: linear-gradient(135deg, #ff9800, #ffb74d);
+    }
+    
+    &.poor {
+      background: linear-gradient(135deg, #f44336, #ef5350);
+    }
+    
+    .score-value {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .score-label {
+    font-size: 0.7rem;
+    color: #666;
+    margin-top: 4px;
+  }
+}
+
+.usage-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 20px;
+  
+  .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .metric-value {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 0.85rem;
+    }
+    
+    .metric-label {
+      font-size: 0.7rem;
+      color: #666;
+    }
+  }
+}
+
+.trend-indicator {
+  width: 30px;
+  text-align: center;
+  
+  .trend-arrow {
+    font-size: 1.2rem;
+    
+    &.up {
+      color: #4caf50;
+    }
+    
+    &.down {
+      color: #f44336;
+    }
+  }
+}
+
+.leaderboard-summary {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .summary-label {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .summary-value {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

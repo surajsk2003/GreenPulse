@@ -1,0 +1,79 @@
+<div class="insights-panel">
+  <div class="panel-header">
+    <h3>🤖 AI Insights</h3>
+    <div class="insights-count" *ngIf="insights && insights.length > 0">
+      {{insights.length}} insights
+    </div>
+  </div>
+  
+  <div class="insights-content" [class.loading]="loading">
+    <!-- Loading state -->
+    <div class="loading-state" *ngIf="loading">
+      <div class="spinner"></div>
+      <span>Generating AI insights...</span>
+    </div>
+    
+    <!-- No insights -->
+    <div class="no-insights" *ngIf="!loading && (!insights || insights.length === 0)">
+      <div class="no-insights-icon">🔍</div>
+      <h4>No insights available</h4>
+      <p>AI analysis will appear here once data is processed</p>
+    </div>
+    
+    <!-- Insights list -->
+    <div class="insights-list" *ngIf="!loading && insights && insights.length > 0">
+      <div 
+        *ngFor="let insight of insights; trackBy: trackByInsightId" 
+        class="insight-card"
+        [class]="'priority-' + getPriorityLevel(insight.priority)">
+        
+        <div class="insight-header">
+          <div class="insight-type">
+            <span class="type-icon">{{getInsightIcon(insight.type)}}</span>
+            <span class="type-label">{{getInsightTypeLabel(insight.type)}}</span>
+          </div>
+          <div class="priority-badge" [class]="'priority-' + getPriorityLevel(insight.priority)">
+            {{getPriorityLevel(insight.priority)}}
+          </div>
+        </div>
+        
+        <div class="insight-content">
+          <h4 class="insight-title">{{insight.title}}</h4>
+          <p class="insight-description">{{insight.description}}</p>
+          
+          <div class="insight-metrics">
+            <div class="metric">
+              <span class="metric-label">Potential Savings:</span>
+              <span class="metric-value savings">${{insight.potential_savings_usd | number:'1.0-0'}}</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Impact:</span>
+              <span class="metric-value" [class]="'impact-' + insight.impact">{{insight.impact}}</span>
+            </div>
+          </div>
+          
+          <div class="insight-recommendation">
+            <strong>Recommendation:</strong>
+            <p>{{insight.recommendation}}</p>
+          </div>
+          
+          <div class="actionable-steps" *ngIf="insight.actionable_steps && insight.actionable_steps.length > 0">
+            <strong>Action Steps:</strong>
+            <ul>
+              <li *ngFor="let step of insight.actionable_steps">{{step}}</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="insight-actions">
+          <button class="action-btn primary" (click)="implementInsight(insight)">
+            Implement
+          </button>
+          <button class="action-btn secondary" (click)="dismissInsight(insight)">
+            Dismiss
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

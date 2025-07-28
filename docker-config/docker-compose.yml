@@ -1,0 +1,74 @@
+services:
+  # PostgreSQL with TimescaleDB
+  db:
+    image: timescale/timescaledb:latest-pg14
+    container_name: greenpulse-db
+    environment:
+      POSTGRES_DB: greenpulse
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - greenpulse-network
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: greenpulse-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - greenpulse-network
+    restart: unless-stopped
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ..
+      dockerfile: docker-config/Dockerfile.backend
+    container_name: greenpulse-backend
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/greenpulse
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - greenpulse-network
+    restart: unless-stopped
+    volumes:
+      - ../backend:/app
+      - ../ashrae-energy-data:/app/ashrae-energy-data
+
+  # Angular Frontend (for development)
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker-config/Dockerfile.frontend
+    container_name: greenpulse-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - greenpulse-network
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  greenpulse-network:
+    driver: bridge

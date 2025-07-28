@@ -1,0 +1,126 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <h1>🌱 GreenPulse Dashboard</h1>
+    <div class="campus-stats">
+      <div class="stat-card">
+        <span class="stat-value">{{totalEnergy | number:'1.0-1'}} kWh</span>
+        <span class="stat-label">Current Usage</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{efficiencyScore}}</span>
+        <span class="stat-label">Efficiency Score</span>
+      </div>
+      <div class="stat-card alert" *ngIf="activeAlerts > 0">
+        <span class="stat-value">{{activeAlerts}}</span>
+        <span class="stat-label">Active Alerts</span>
+      </div>
+      <div class="stat-card success">
+        <span class="stat-value">${{estimatedSavings | number:'1.0-0'}}</span>
+        <span class="stat-label">Potential Savings</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="dashboard-content">
+    <!-- Building Selector -->
+    <div class="controls-section">
+      <mat-select 
+        [(value)]="selectedBuilding" 
+        (selectionChange)="onBuildingChange($event)"
+        placeholder="Select Building"
+        class="building-selector">
+        <mat-option *ngFor="let building of buildings" [value]="building.id">
+          {{building.name}} ({{building.building_type}})
+        </mat-option>
+      </mat-select>
+      
+      <div class="time-controls">
+        <button 
+          *ngFor="let period of timePeriods" 
+          [class.active]="period.value === selectedPeriod"
+          (click)="changePeriod(period.value)"
+          class="time-btn">
+          {{period.label}}
+        </button>
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid" *ngIf="selectedBuilding">
+      <div class="chart-panel main-chart">
+        <app-energy-chart 
+          [energyData]="currentEnergyData"
+          [anomalies]="anomalies"
+          [forecast]="forecast"
+          [loading]="loadingChart">
+        </app-energy-chart>
+      </div>
+      
+      <div class="insights-panel">
+        <app-insights-panel 
+          [insights]="aiInsights"
+          [loading]="loadingInsights">
+        </app-insights-panel>
+      </div>
+
+      <div class="leaderboard-panel">
+        <app-leaderboard 
+          [leaderboard]="leaderboard"
+          [loading]="loadingLeaderboard">
+        </app-leaderboard>
+      </div>
+
+      <!-- Building Details Card -->
+      <div class="building-details-card">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Building Details</mat-card-title>
+          </mat-card-header>
+          <mat-card-content *ngIf="selectedBuildingDetails">
+            <div class="detail-row">
+              <span class="label">Type:</span>
+              <span class="value">{{selectedBuildingDetails.building_type}}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Area:</span>
+              <span class="value">{{selectedBuildingDetails.area_sqft | number}} sq ft</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Year Built:</span>
+              <span class="value">{{selectedBuildingDetails.year_built}}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Efficiency:</span>
+              <span class="value">{{selectedBuildingDetails.efficiency_score}}%</span>
+              <mat-progress-bar 
+                [value]="selectedBuildingDetails.efficiency_score" 
+                [color]="getEfficiencyColor(selectedBuildingDetails.efficiency_score)">
+              </mat-progress-bar>
+            </div>
+            <div class="detail-row">
+              <span class="label">Current Usage:</span>
+              <span class="value">{{selectedBuildingDetails.current_usage | number:'1.2-2'}} kWh</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="!selectedBuilding && !loadingBuildings">
+      <mat-icon>business</mat-icon>
+      <h3>Select a building to view energy data</h3>
+      <p>Choose from {{buildings.length}} available buildings to start monitoring energy consumption</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" *ngIf="errorMessage">
+      <mat-icon>error</mat-icon>
+      <h3>Unable to load data</h3>
+      <p>{{errorMessage}}</p>
+      <button (click)="retryLoad()" class="retry-btn">Retry</button>
+    </div>
+  </div>
+</div>
