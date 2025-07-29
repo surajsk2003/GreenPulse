@@ -1,0 +1,11 @@
+site_id,building_id,primary_use,square_feet,year_built,floor_count
+0,0,Education,7432,2008,
+0,1,Education,2720,2004,
+0,2,Education,5376,1991,
+0,3,Education,23685,2002,
+0,4,Office,12500,2010,
+0,5,Office,8900,2015,
+0,6,Lodging/residential,15600,2012,
+0,7,Public services,9800,2018,
+0,8,Entertainment/public assembly,18900,2020,
+0,9,Retail,11200,2016,

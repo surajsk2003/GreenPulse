@@ -21,12 +21,12 @@ RUN pip install --prefer-binary --no-cache-dir -r requirements.txt
 # Copy application code
 COPY backend/ .
 
-# Copy only essential files from data pipeline and ashrae data
+# Copy only essential files from data pipeline
 COPY data-pipeline/ashrae_processor.py ./data-pipeline/
-COPY ashrae-energy-data/building_metadata.csv ./ashrae-energy-data/
 
-# Create necessary directories
+# Create necessary directories and copy sample metadata
 RUN mkdir -p ./models ./data-pipeline ./ashrae-energy-data
+COPY backend/sample_building_metadata.csv ./ashrae-energy-data/building_metadata.csv
 
 # Create non-root user
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
