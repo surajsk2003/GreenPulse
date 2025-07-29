@@ -31,3 +31,14 @@ pip-delete-this-directory.txt
 .pytest_cache
 htmlcov
 .cache
+
+# Large ASHRAE data files
+ashrae-energy-data/train.csv
+ashrae-energy-data/test.csv
+ashrae-energy-data/weather_train.csv
+ashrae-energy-data/weather_test.csv
+ashrae-energy-data/sample_submission.csv
+
+# Virtual environment
+venv/
+.venv/
