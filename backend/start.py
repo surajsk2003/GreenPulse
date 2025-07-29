@@ -49,6 +49,18 @@ def main():
         print("💥 Failed to connect to database. Exiting...")
         sys.exit(1)
     
+    # Initialize demo data if needed
+    try:
+        print("🔧 Running Railway initialization...")
+        from railway_init import main as init_main
+        if init_main():
+            print("✅ Railway initialization completed")
+        else:
+            print("⚠️ Railway initialization failed, continuing anyway...")
+    except Exception as e:
+        print(f"⚠️ Railway initialization error: {e}")
+        print("Continuing with server startup...")
+    
     # Start the FastAPI server
     print("🌱 Starting FastAPI server...")
     uvicorn.run(
