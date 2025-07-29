@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "name": "greenpulse-frontend",
+  "builds": [
+    {
+      "src": "frontend/greenpulse-dashboard/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/greenpulse-dashboard"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {},
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -4,8 +4,8 @@ services:
     name: greenpulse-backend
     env: python
     region: oregon
-    buildCommand: "pip install -r backend/requirements.txt"
-    startCommand: "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python application.py"
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL
@@ -13,7 +13,7 @@ services:
           name: greenpulse-db
           property: connectionString
       - key: ALLOWED_ORIGINS
-        value: https://greenpulse-frontend.onrender.com
+        value: "https://greenpulse-frontend.vercel.app,https://greenpulse-frontend.onrender.com,http://localhost:4200"
       - key: API_V1_STR
         value: /api
       - key: PROJECT_NAME
