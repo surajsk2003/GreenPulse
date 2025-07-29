@@ -2,6 +2,18 @@
 
 **Real-time energy insights for a sustainable tomorrow**
 
+## 🚀 **INSTANT DEPLOY** (5 minutes, completely FREE!)
+
+### Backend + Database (Render)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/surajsk2003/GreenPulse)
+
+### Frontend (Vercel)  
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/surajsk2003/GreenPulse&project-name=greenpulse-frontend&root-directory=frontend/greenpulse-dashboard)
+
+**🎯 Click both buttons above → Get live URLs in 5 minutes!**
+
+---
+
 GreenPulse is an intelligent energy monitoring and management platform designed for educational and corporate campuses. It provides real-time energy usage tracking, AI-powered insights, and gamified conservation challenges to help institutions reduce energy costs and environmental impact.
 
 ## 🚀 Quick Start
