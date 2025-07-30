@@ -4,7 +4,7 @@ import os
 
 class Settings(BaseSettings):
     # Database - AWS RDS PostgreSQL
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/greenpulse")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/greenpulse")
     
     # Redis
     REDIS_URL: str = "redis://localhost:6379"
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     ]
     
     # Security
-    SECRET_KEY: str = "your-secret-key-change-in-production"
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "change-me-in-production")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     

@@ -95,7 +95,7 @@ if ! aws rds describe-db-instances --db-instance-identifier $DB_IDENTIFIER --reg
         --db-instance-class db.t3.micro \
         --engine postgres \
         --master-username postgres \
-        --master-user-password GreenPulse2024! \
+        --master-user-password YOUR_DB_PASSWORD \
         --allocated-storage 20 \
         --db-name greenpulse \
         --vpc-security-group-ids $SECURITY_GROUP_ID \
@@ -130,8 +130,8 @@ pip3 install -r requirements.txt
 
 # Set up environment variables
 cat > .env << ENVEOF
-DATABASE_URL=postgresql://postgres:GreenPulse2024!@your-rds-endpoint:5432/greenpulse
-SECRET_KEY=aws-production-secret-key-change-me
+DATABASE_URL=postgresql://postgres:YOUR_DB_PASSWORD@your-rds-endpoint:5432/greenpulse
+SECRET_KEY=YOUR_SECRET_KEY
 PROJECT_NAME=GreenPulse
 ALLOWED_ORIGINS=https://your-cloudfront-domain.cloudfront.net
 ENVEOF

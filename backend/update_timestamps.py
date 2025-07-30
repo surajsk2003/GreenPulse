@@ -6,6 +6,7 @@ import pandas as pd
 from sqlalchemy import create_engine, text
 from datetime import datetime, timedelta
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -14,7 +15,7 @@ def update_timestamps():
     """Update energy reading timestamps to be recent"""
     
     # Database connection
-    database_url = "postgresql://postgres:password@greenpulse-db:5432/greenpulse"
+    database_url = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/greenpulse")
     engine = create_engine(database_url)
     
     try:

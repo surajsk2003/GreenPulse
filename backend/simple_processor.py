@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 class SimpleASHRAEProcessor:
     def __init__(self):
         # Database connection
-        self.database_url = "postgresql://postgres:password@greenpulse-db:5432/greenpulse"
+        self.database_url = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/greenpulse")
         self.engine = create_engine(self.database_url)
         
         # Data file paths
