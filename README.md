@@ -2,15 +2,24 @@
 
 **Real-time energy insights for a sustainable tomorrow**
 
-## 🚀 **INSTANT DEPLOY** (5 minutes, completely FREE!)
+## 🚀 **AWS FREE TIER DEPLOYMENT** (Professional Setup!)
 
-### Backend + Database (Render)
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/surajsk2003/GreenPulse)
+### One-Click AWS Deployment
+```bash
+# Clone the repository
+git clone https://github.com/surajsk2003/GreenPulse.git
+cd GreenPulse
 
-### Frontend (Vercel)  
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/surajsk2003/GreenPulse&project-name=greenpulse-frontend&root-directory=frontend/greenpulse-dashboard)
+# Run the deployment script
+./deploy-aws.sh
+```
 
-**🎯 Click both buttons above → Get live URLs in 5 minutes!**
+**🎯 Complete AWS infrastructure in 30 minutes - FREE for 12 months!**
+
+**Architecture:**
+- ✅ **EC2 t2.micro** - Backend FastAPI server
+- ✅ **RDS PostgreSQL** - Managed database  
+- ✅ **S3 + CloudFront** - Frontend hosting with global CDN
 
 ---
 

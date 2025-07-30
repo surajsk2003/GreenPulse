@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://greenpulse-backend.onrender.com/api'
+  apiUrl: 'http://your-ec2-public-ip:8000/api'
 };

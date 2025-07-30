@@ -1,9 +1,9 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from typing import List
 import os
 
 class Settings(BaseSettings):
-    # Database - Render provides DATABASE_URL environment variable
+    # Database - AWS RDS PostgreSQL
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/greenpulse")
     
     # Redis
@@ -15,12 +15,12 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     PORT: int = int(os.getenv("PORT", "8000"))
     
-    # CORS
+    # CORS - AWS CloudFront and S3
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:4200", 
         "http://localhost:3000",
-        "https://greenpulse-frontend.up.railway.app",
-        "https://*.up.railway.app"
+        "https://*.amazonaws.com",
+        "https://*.cloudfront.net"
     ]
     
     # Security
