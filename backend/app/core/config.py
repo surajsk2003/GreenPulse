@@ -1,9 +1,9 @@
-from pydantic_settings import BaseSettings
+from pydantic import BaseSettings
 from typing import List
 import os
 
 class Settings(BaseSettings):
-    # Database - Railway provides DATABASE_URL environment variable
+    # Database - Render provides DATABASE_URL environment variable
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/greenpulse")
     
     # Redis
