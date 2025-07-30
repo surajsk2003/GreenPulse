@@ -23,6 +23,6 @@ services:
 databases:
   - name: greenpulse-db
     databaseName: greenpulse
-    user: postgres
+    user: greenpulse_user
     region: oregon
     plan: free
